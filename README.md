@@ -1,6 +1,6 @@
-﻿# Dr. Saheli - Medical Assistant
+# Healin - Medical Assistant
 
-Dr. Saheli is a futuristic, intelligent medical chatbot powered by **Google Gemini** and **Pinecone vector embeddings**. It uses a robust internal RAG (Retrieval-Augmented Generation) pipeline to fetch domain-specific medical knowledge to ensure accurate and context-aware responses.
+Healin is a futuristic, intelligent medical chatbot powered by **Google Gemini** and **Pinecone vector embeddings**. It uses a robust internal RAG (Retrieval-Augmented Generation) pipeline to fetch domain-specific medical knowledge to ensure accurate and context-aware responses.
 
 ## Features
 - **Cyberpunk UI**: A beautifully stylized hacker-aesthetic chat interface.
