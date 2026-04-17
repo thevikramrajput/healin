@@ -5,7 +5,7 @@ Healin is a futuristic, intelligent medical chatbot powered by **Google Gemini**
 ## Features
 - **Cyberpunk UI**: A beautifully stylized hacker-aesthetic chat interface.
 - **RAG Architecture**: Uses Pinecone for rapid document retrieval alongside Hugging Face embeddings.
-- **Powered by Gemini**: Fully integrated with the Google gemini-flash-latest generative AI framework for instantaneous intelligence.
+- **Powered by Gemini**: Fully integrated with the Google gemini-1.5-flash generative AI framework for instantaneous intelligence.
 
 ## 🚀 Beginner's Quick Start Guide
 
