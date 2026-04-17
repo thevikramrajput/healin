@@ -43,7 +43,13 @@ def text_split(extracted_data):
 
 
 
-#Download the Embeddings from HuggingFace 
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
+import os
+
+#Download the Embeddings from HuggingFace via API
 def download_hugging_face_embeddings():
-    embeddings=HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2')  #this model return 384 dimensions
+    embeddings = HuggingFaceEndpointEmbeddings(
+        model="sentence-transformers/all-MiniLM-L6-v2",
+        huggingfacehub_api_token=os.environ.get("HUGGINGFACEHUB_API_TOKEN")
+    )
     return embeddings
