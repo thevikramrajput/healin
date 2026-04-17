@@ -1,130 +1,61 @@
-# Build-a-Complete-Medical-Chatbot-with-LLMs-LangChain-Pinecone-Flask-AWS
+﻿# Dr. Saheli - Medical Assistant
 
-# How to run?
-### STEPS:
+Dr. Saheli is a futuristic, intelligent medical chatbot powered by **Google Gemini** and **Pinecone vector embeddings**. It uses a robust internal RAG (Retrieval-Augmented Generation) pipeline to fetch domain-specific medical knowledge to ensure accurate and context-aware responses.
 
-Clone the repository
+## Features
+- **Cyberpunk UI**: A beautifully stylized hacker-aesthetic chat interface.
+- **RAG Architecture**: Uses Pinecone for rapid document retrieval alongside Hugging Face embeddings.
+- **Powered by Gemini**: Fully integrated with the Google gemini-flash-latest generative AI framework for instantaneous intelligence.
 
-```bash
-git clonehttps://github.com/entbappy/Build-a-Complete-Medical-Chatbot-with-LLMs-LangChain-Pinecone-Flask-AWS.git
-```
-### STEP 01- Create a conda environment after opening the repository
+## 🚀 Beginner's Quick Start Guide
 
-```bash
-conda create -n medibot python=3.10 -y
-```
+Follow these step-by-step instructions to run the application completely offline on your own machine.
 
-```bash
-conda activate medibot
-```
+### 1. Prerequisites
+Make sure you have [Python 3.10+](https://www.python.org/downloads/) installed on your computer.
 
+### 2. Prepare the Virtual Environment
+Open your terminal (PowerShell or Command Prompt) and navigate into the project folder. Create and activate an isolated Python environment so your global packages don't conflict:
 
-### STEP 02- install the requirements
-```bash
+**Create the environment:**
+`powershell
+python -m venv venv2
+`
+
+**Activate the environment:**
+`powershell
+.\venv2\Scripts\activate
+`
+*(You should see (venv2) appear at the start of your terminal line).*
+
+### 3. Install Dependencies
+With your environment active, install all required packages:
+`powershell
 pip install -r requirements.txt
-```
+`
 
+### 4. Configure Environment Variables
+Create a file named literally .env inside the main project folder. Add your API keys inside this file:
+`ini
+PINECONE_API_KEY="your_pinecone_key"
+HUGGINGFACEHUB_API_TOKEN="your_huggingface_token_for_embeddings"
+GOOGLE_API_KEY="your_google_gemini_api_key"
+`
 
-### Create a `.env` file in the root directory and add your Pinecone & openai credentials as follows:
-
-```ini
-PINECONE_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-OPENAI_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-```
-
-
-```bash
-# run the following command to store embeddings to pinecone
+### 5. Initialize the Vector Store *(First time only!)*
+If this is your first time setting up the project and Pinecone requires the medical documents, run the index script to build your vector database:
+`powershell
 python store_index.py
-```
+`
 
-```bash
-# Finally run the following command
+### 6. Start the Application
+Boot up the main Flask backend:
+`powershell
 python app.py
-```
+`
 
-Now,
-```bash
-open up localhost:
-```
+### 7. Start Chatting
+Open your favorite web browser (Chrome, Edge, Safari) and navigate to:
+👉 [http://127.0.0.1:8080](http://127.0.0.1:8080)
 
-
-### Techstack Used:
-
-- Python
-- LangChain
-- Flask
-- GPT
-- Pinecone
-
-
-
-# AWS-CICD-Deployment-with-Github-Actions
-
-## 1. Login to AWS console.
-
-## 2. Create IAM user for deployment
-
-	#with specific access
-
-	1. EC2 access : It is virtual machine
-
-	2. ECR: Elastic Container registry to save your docker image in aws
-
-
-	#Description: About the deployment
-
-	1. Build docker image of the source code
-
-	2. Push your docker image to ECR
-
-	3. Launch Your EC2 
-
-	4. Pull Your image from ECR in EC2
-
-	5. Lauch your docker image in EC2
-
-	#Policy:
-
-	1. AmazonEC2ContainerRegistryFullAccess
-
-	2. AmazonEC2FullAccess
-
-	
-## 3. Create ECR repo to store/save docker image
-    - Save the URI: 315865595366.dkr.ecr.us-east-1.amazonaws.com/medicalbot
-
-	
-## 4. Create EC2 machine (Ubuntu) 
-
-## 5. Open EC2 and Install docker in EC2 Machine:
-	
-	
-	#optinal
-
-	sudo apt-get update -y
-
-	sudo apt-get upgrade
-	
-	#required
-
-	curl -fsSL https://get.docker.com -o get-docker.sh
-
-	sudo sh get-docker.sh
-
-	sudo usermod -aG docker ubuntu
-
-	newgrp docker
-	
-# 6. Configure EC2 as self-hosted runner:
-    setting>actions>runner>new self hosted runner> choose os> then run command one by one
-
-
-# 7. Setup github secrets:
-
-   - AWS_ACCESS_KEY_ID
-   - AWS_SECRET_ACCESS_KEY
-   - AWS_DEFAULT_REGION
-   - ECR_REPO
-   - PINECONE_API_KEY
-   - OPENAI_API_KEY
+*Note: All old boilerplate AWS, Docker, and deployment legacy artifacts have been cleanly removed to focus strictly on an optimized, fast offline RAG implementation.*
