@@ -1,5 +1,5 @@
-from flask import Flask, render_template, jsonify, request
-from src.helper import download_hugging_face_embeddings
+from flask import Flask, render_template, jsonify, request, Response, stream_with_context
+from src.helper import get_google_embeddings
 from langchain_pinecone import PineconeVectorStore
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.chains import create_retrieval_chain
@@ -21,9 +21,9 @@ if PINECONE_API_KEY:
 if GOOGLE_API_KEY:
     os.environ['GOOGLE_API_KEY'] = GOOGLE_API_KEY
 
-embeddings = download_hugging_face_embeddings()
+embeddings = get_google_embeddings()
 
-index_name = 'medical-chatbot'
+index_name = 'medical-chatbot-gemini'
 docsearch = PineconeVectorStore.from_existing_index(
     index_name=index_name,
     embedding=embeddings
@@ -48,12 +48,17 @@ def index():
 
 @app.route('/get', methods=['GET', 'POST'])
 def chat():
-    msg = request.form['msg']
-    input = msg
-    print(input)
-    response = rag_chain.invoke({'input': msg})
-    print('Response : ', response['answer'])
-    return str(response['answer'])
+    msg = request.form.get('msg')
+    if not msg:
+        msg = request.args.get('msg') or ""
+    
+    def generate():
+        for chunk in rag_chain.stream({'input': msg}):
+            if 'answer' in chunk:
+                # Flask stream_with_context needs to yield string
+                yield chunk['answer']
+                
+    return Response(stream_with_context(generate()), mimetype='text/plain')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=False)

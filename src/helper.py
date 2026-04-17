@@ -43,13 +43,10 @@ def text_split(extracted_data):
 
 
 
-from langchain_huggingface import HuggingFaceEndpointEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 import os
 
-#Download the Embeddings from HuggingFace via API
-def download_hugging_face_embeddings():
-    embeddings = HuggingFaceEndpointEmbeddings(
-        model="sentence-transformers/all-MiniLM-L6-v2",
-        huggingfacehub_api_token=os.environ.get("HUGGINGFACEHUB_API_TOKEN")
-    )
+#Download the Embeddings from Google Gemini via API
+def get_google_embeddings():
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     return embeddings
