@@ -50,7 +50,6 @@
 		</div>
 		
 		<script>
-            // A helper to scroll to bottom
             function scrollToBottom() {
                 var msgBody = document.getElementById("messageFormeight");
                 msgBody.scrollTop = msgBody.scrollHeight;
@@ -77,8 +76,6 @@
 					$("#text").val("");
 					$("#messageFormeight").append(userHtml);
                     scrollToBottom();
-
-                    // Add empty bot placeholder with typing indicator
                     const botId = "bot-msg-" + Date.now();
 					var botHtml = `
                     <div class="d-flex justify-content-start mb-4">
@@ -91,8 +88,6 @@
                     </div>`;
 					$("#messageFormeight").append(botHtml);
                     scrollToBottom();
-
-                    // Fetch API for streaming response
                     try {
                         const response = await fetch('/get', {
                             method: 'POST',
