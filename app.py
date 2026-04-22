@@ -21,7 +21,7 @@ if not PINECONE_API_KEY or not GOOGLE_API_KEY:
 
 embeddings = get_google_embeddings()
 
-index_name = 'medical-chatbot-gemini'
+index_name = 'medical-chatbot'
 docsearch = PineconeVectorStore.from_existing_index(
     index_name=index_name,
     embedding=embeddings
