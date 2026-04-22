@@ -48,5 +48,13 @@ import os
 
 #Download the Embeddings from Google Gemini via API
 def get_google_embeddings():
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    google_api_key = os.environ.get("GOOGLE_API_KEY")
+    if not google_api_key:
+        raise ValueError("GOOGLE_API_KEY is not set in the environment variables.")
+    
+    embeddings = GoogleGenerativeAIEmbeddings(
+        model="models/embedding-001", 
+        google_api_key=google_api_key,
+        transport="rest"
+    )
     return embeddings

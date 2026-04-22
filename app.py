@@ -16,22 +16,26 @@ load_dotenv()
 PINECONE_API_KEY=os.environ.get('PINECONE_API_KEY')
 GOOGLE_API_KEY=os.environ.get('GOOGLE_API_KEY')
 
-if PINECONE_API_KEY:
-    os.environ['PINECONE_API_KEY'] = PINECONE_API_KEY
-if GOOGLE_API_KEY:
-    os.environ['GOOGLE_API_KEY'] = GOOGLE_API_KEY
+if not PINECONE_API_KEY or not GOOGLE_API_KEY:
+    print("WARNING: Missing PINECONE_API_KEY or GOOGLE_API_KEY environment variables.")
 
 embeddings = get_google_embeddings()
 
 index_name = 'medical-chatbot-gemini'
 docsearch = PineconeVectorStore.from_existing_index(
     index_name=index_name,
-    embedding=embeddings
+    embedding=embeddings,
+    pinecone_api_key=PINECONE_API_KEY
 )
 
 retriever = docsearch.as_retriever(search_type='similarity', search_kwargs={'k':3})
 
-chatModel = ChatGoogleGenerativeAI(model='gemini-1.5-flash', temperature=0.3)
+chatModel = ChatGoogleGenerativeAI(
+    model='gemini-1.5-flash', 
+    temperature=0.3,
+    google_api_key=GOOGLE_API_KEY,
+    transport="rest"
+)
 prompt = ChatPromptTemplate.from_messages(
     [
         ('system', system_prompt),
