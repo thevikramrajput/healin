@@ -24,8 +24,7 @@ embeddings = get_google_embeddings()
 index_name = 'medical-chatbot-gemini'
 docsearch = PineconeVectorStore.from_existing_index(
     index_name=index_name,
-    embedding=embeddings,
-    pinecone_api_key=PINECONE_API_KEY
+    embedding=embeddings
 )
 
 retriever = docsearch.as_retriever(search_type='similarity', search_kwargs={'k':3})
